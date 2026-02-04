@@ -1,4 +1,4 @@
-import { getJobs } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 import { generateJobSlug } from '@/lib/utils/slugify';
 
 export type MinimalJob = {

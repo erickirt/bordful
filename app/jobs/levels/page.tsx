@@ -5,7 +5,8 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { MetadataBreadcrumb } from '@/components/ui/metadata-breadcrumb';
 import config from '@/config';
 import { CAREER_LEVEL_DISPLAY_NAMES } from '@/lib/constants/career-levels';
-import { type CareerLevel, getJobs } from '@/lib/db/airtable';
+import type { CareerLevel } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 import { generateMetadata } from '@/lib/utils/metadata';
 
 // Generate metadata for SEO

@@ -5,7 +5,7 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { JobSearchInput } from '@/components/ui/job-search-input';
 import config from '@/config';
 import { getCountryFromSlug } from '@/lib/constants/locations';
-import { getJobs } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 
 // Revalidate page every 5 minutes
 export const revalidate = 300;

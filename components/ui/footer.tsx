@@ -3,8 +3,7 @@
 import { ArrowUpRight, Briefcase, Rss } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type React from 'react';
-import { useEffect, useState } from 'react';
+import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import config from '@/config';
 import { resolveColor } from '@/lib/utils/colors';
@@ -46,7 +45,7 @@ type FooterColumn = {
   id: string;
   order: number;
   show: boolean;
-  content: React.ReactNode;
+  content: ReactNode;
 };
 
 export function Footer() {
@@ -92,9 +91,13 @@ export function Footer() {
     color: textColor,
   };
 
-  const linkStyle = {
-    color: linkColor,
-  };
+  const hoverLinkClassName =
+    'transition-colors text-[var(--link-color)] hover:text-[var(--hover-color)] focus-visible:text-[var(--hover-color)]';
+
+  const hoverLinkStyle = {
+    '--link-color': linkColor,
+    '--hover-color': linkHoverColor,
+  } as CSSProperties;
 
   // Define the brand column content
   const brandColumn = (
@@ -128,21 +131,10 @@ export function Footer() {
         {rssEnabled && (
           <Link
             aria-label="Subscribe to RSS Feed"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href="/feed.xml"
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <Rss aria-hidden="true" className="h-4 w-4" />
@@ -151,21 +143,10 @@ export function Footer() {
         {config.nav.github.show && (
           <Link
             aria-label="View on GitHub"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href={config.nav.github.url}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <svg
@@ -194,21 +175,10 @@ export function Footer() {
         {config.nav.linkedin.show && (
           <Link
             aria-label="Follow us on LinkedIn"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href={config.nav.linkedin.url}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <svg
@@ -228,21 +198,10 @@ export function Footer() {
         {config.nav.twitter.show && (
           <Link
             aria-label="Follow us on X (Twitter)"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href={config.nav.twitter.url}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <svg
@@ -262,21 +221,10 @@ export function Footer() {
         {config.nav.bluesky.show && (
           <Link
             aria-label="Follow us on Bluesky"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href={config.nav.bluesky.url}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <svg
@@ -292,21 +240,10 @@ export function Footer() {
         {config.nav.reddit.show && (
           <Link
             aria-label="Follow us on Reddit"
-            className="transition-colors"
+            className={hoverLinkClassName}
             href={config.nav.reddit.url}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <svg
@@ -340,21 +277,10 @@ export function Footer() {
         {/* RSS format */}
         <li>
           <Link
-            className="flex items-center gap-1.5 text-sm transition-colors"
+            className={`flex items-center gap-1.5 text-sm ${hoverLinkClassName}`}
             href="/feed.xml"
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <Rss className="h-3.5 w-3.5" />
@@ -367,21 +293,10 @@ export function Footer() {
         {/* Atom format */}
         <li>
           <Link
-            className="flex items-center gap-1.5 text-sm transition-colors"
+            className={`flex items-center gap-1.5 text-sm ${hoverLinkClassName}`}
             href="/atom.xml"
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <Rss className="h-3.5 w-3.5" />
@@ -394,21 +309,10 @@ export function Footer() {
         {/* JSON format */}
         <li>
           <Link
-            className="flex items-center gap-1.5 text-sm transition-colors"
+            className={`flex items-center gap-1.5 text-sm ${hoverLinkClassName}`}
             href="/feed.json"
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = linkColor;
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = linkHoverColor;
-            }}
             rel="noopener noreferrer"
-            style={
-              {
-                ...linkStyle,
-                '--hover-color': linkHoverColor,
-              } as React.CSSProperties
-            }
+            style={hoverLinkStyle}
             target="_blank"
           >
             <Rss className="h-3.5 w-3.5" />
@@ -435,20 +339,9 @@ export function Footer() {
         {links.map(({ link, label, external }) => (
           <li key={link}>
             <Link
-              className="text-sm transition-colors"
+              className={`${hoverLinkClassName} text-sm`}
               href={link}
-              onMouseOut={(e) => {
-                e.currentTarget.style.color = linkColor;
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.color = linkHoverColor;
-              }}
-              style={
-                {
-                  ...linkStyle,
-                  '--hover-color': linkHoverColor,
-                } as React.CSSProperties
-              }
+              style={hoverLinkStyle}
               {...(external
                 ? { target: '_blank', rel: 'noopener noreferrer' }
                 : {})}
@@ -718,21 +611,10 @@ export function Footer() {
                       </svg>
                     )}
                     <Link
-                      className="text-xs"
+                      className={`${hoverLinkClassName} text-xs`}
                       href={config.footer.builtWith.link}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.color = linkColor;
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.color = linkHoverColor;
-                      }}
                       rel="noopener noreferrer"
-                      style={
-                        {
-                          ...linkStyle,
-                          '--hover-color': linkHoverColor,
-                        } as React.CSSProperties
-                      }
+                      style={hoverLinkStyle}
                       target="_blank"
                     >
                       {config.footer.builtWith.name}

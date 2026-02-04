@@ -25,7 +25,7 @@ import {
   formatLocationTitle,
 } from '@/lib/constants/locations';
 import type { CareerLevel } from '@/lib/db/airtable';
-import { getJobs } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 import { resolveColor } from '@/lib/utils/colors';
 import { generateMetadata } from '@/lib/utils/metadata';
 

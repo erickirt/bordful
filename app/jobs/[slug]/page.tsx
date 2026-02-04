@@ -12,7 +12,8 @@ import { PostJobBanner } from '@/components/ui/post-job-banner';
 import { SimilarJobs } from '@/components/ui/similar-jobs';
 import config from '@/config';
 import { PARENTHESIS_CONTENT_REGEX } from '@/lib/constants/defaults';
-import { formatSalary, getJobs } from '@/lib/db/airtable';
+import { formatSalary } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 import { resolveColor } from '@/lib/utils/colors';
 import { formatDate } from '@/lib/utils/formatDate';
 import { generateMetadata as createMetadata } from '@/lib/utils/metadata';
@@ -184,10 +185,7 @@ export default async function JobPostPage({
 }: {
   params: { slug: string };
 }) {
-  // Await the params to resolve before using
-  const { slug } = await params;
-
-  const jobs = await getJobs();
+  const [jobs, { slug }] = await Promise.all([getJobs(), params]);
   const job = jobs.find((j) => generateJobSlug(j.title, j.company) === slug);
 
   if (!job) {
@@ -287,9 +285,6 @@ export default async function JobPostPage({
               {!job.description && (
                 <p className="text-red-500">No description available</p>
               )}
-              <div className="hidden">
-                Raw description: {JSON.stringify(job.description)}
-              </div>
               {/* Use our custom utility to process Airtable's markdown format */}
               <ReactMarkdown
                 components={{

@@ -8,11 +8,6 @@ const nextConfig: NextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  env: {
-    AIRTABLE_ACCESS_TOKEN: process.env.AIRTABLE_ACCESS_TOKEN,
-    AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
-    AIRTABLE_TABLE_NAME: process.env.AIRTABLE_TABLE_NAME,
-  },
   headers() {
     return [
       {

@@ -71,51 +71,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <html className={fontClasses.join(' ')} data-font={fontFamily} lang="en">
-      <head>
-        {/* Add explicit font preloading */}
-        {fontFamily === 'ibm-plex-serif' && (
-          <>
-            <link
-              crossOrigin="anonymous"
-              href="https://fonts.googleapis.com"
-              rel="preconnect"
-            />
-            <link
-              crossOrigin="anonymous"
-              href="https://fonts.gstatic.com"
-              rel="preconnect"
-            />
-          </>
-        )}
-        <link
-          href={`${siteConfig.url}/feed.xml`}
-          rel="alternate"
-          title={`${siteConfig.nav.title} - RSS Feed`}
-          type="application/rss+xml"
-        />
-        <link
-          href={`${siteConfig.url}/atom.xml`}
-          rel="alternate"
-          title={`${siteConfig.nav.title} - Atom Feed`}
-          type="application/atom+xml"
-        />
-        <link
-          href={`${siteConfig.url}/feed.json`}
-          rel="alternate"
-          title={`${siteConfig.nav.title} - JSON Feed`}
-          type="application/feed+json"
-        />
-
+      <body className={bodyClass}>
         {siteConfig.scripts.head.map((script: CustomScript) => (
           <Script
-            key={`head-script-${script.src || 'inline'}`}
+            key={`head-script-${script.src}`}
             src={script.src}
             strategy={script.strategy}
             {...script.attributes}
           />
         ))}
-      </head>
-      <body className={bodyClass}>
         <div className="flex min-h-screen flex-col">
           <Nav />
           <main className="flex-1">

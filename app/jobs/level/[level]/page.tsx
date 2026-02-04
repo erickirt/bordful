@@ -5,7 +5,8 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { JobSearchInput } from '@/components/ui/job-search-input';
 import config from '@/config';
 import { CAREER_LEVEL_DISPLAY_NAMES } from '@/lib/constants/career-levels';
-import { type CareerLevel, getJobs } from '@/lib/db/airtable';
+import type { CareerLevel } from '@/lib/db/airtable';
+import { getJobs } from '@/lib/db/airtable.server';
 import { generateMetadata as createMetadata } from '@/lib/utils/metadata';
 
 // Revalidate page every 5 minutes
@@ -52,9 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CareerLevelPage({ params }: Props) {
-  const jobs = await getJobs();
-  // Await the entire params object first
-  const resolvedParams = await params;
+  const [jobs, resolvedParams] = await Promise.all([getJobs(), params]);
   const levelSlug = decodeURIComponent(resolvedParams.level).toLowerCase();
   const careerLevel = getCareerLevelFromSlug(levelSlug);
 
